@@ -1,0 +1,5 @@
+/golang-backend/.env
+docker-compose.yml
+/vue-frontend/node_modules/
+
+

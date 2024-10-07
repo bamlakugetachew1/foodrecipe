@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # postgres:
+  #   image: postgres:13
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: bamlaku
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: foodrecipedb
+  #     POSTGRES_HOST_AUTH_METHOD: trust
+
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+  hasura:
+    image: hasura/graphql-engine:v2.1.0
+    restart: always
+    ports:
+      - "8080:8080"
+    # depends_on:
+    #   - postgres
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: your pg database url
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: your hasura admin secret
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "public"
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256","key":"your jwt signing key make sure to match from jwt in your backend"}'
+  # golang-backend:
+  #   build:
+  #     context: ./golang-backend
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     DB_URL: postgres://bamlaku:password@postgres:5432/foodrecipedb
+  #   ports:
+  #     - "8081:8081"
+
+volumes:
+  pgdata:
